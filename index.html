@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Gestão - Paola Estética</title>
+    <style>
+        /* === MEU ESTILO BASE (O que eu achei moderno) === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: url('projeto paola.avif') no-repeat center center fixed;
+            background-size: cover;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh;
+            padding: 20px;
+        }
+        .container { text-align: center; width: 100%; max-width: 850px; padding-bottom: 50px; }
+        h1 { color: #444; margin-bottom: 30px; text-transform: uppercase; font-size: 1.6rem; text-shadow: 1px 1px 2px white; }
+        h1 span { color: #ed717a; font-weight: bold; }
+        
+        /* Meus cards que ficaram ótimos */
+        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .card { background: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 15px; border: 1px solid #ed717a; }
+        .card span { display: block; font-size: 0.8rem; color: #666; font-weight: bold; margin-bottom: 8px; }
+        .card b { font-size: 1.2rem; color: #333; }
+        
+        /* Meu formulário clean */
+        .form-area {
+            background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 25px; 
+            max-width: 650px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .input-group { display: flex; gap: 15px; margin-bottom: 20px; position: relative; }
+
+        /* Minha barra de busca moderna que eu não quero mudar */
+        .custom-select { flex: 2; position: relative; }
+        .select-box {
+            padding: 15px; border-radius: 12px; border: 1px solid #ed717a;
+            background: white; cursor: pointer; text-align: left; font-size: 0.9rem; color: #444;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .options-list {
+            position: absolute; top: 110%; left: 0; width: 100%;
+            background: white; border: 1px solid #ed717a; border-radius: 12px;
+            max-height: 200px; overflow-y: auto; display: none; z-index: 1000;
+        }
+        .option-item { padding: 12px; cursor: pointer; text-align: left; font-size: 0.9rem; border-bottom: 1px solid #fff0f1; }
+        .option-item:hover { background: #fff0f1; color: #ed717a; }
+
+        input { flex: 1; padding: 15px; border-radius: 12px; border: 1px solid #ed717a; font-size: 1rem; outline: none; }
+        .btn-add { background: #ed717a; color: white; border: none; padding: 18px; border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; text-transform: uppercase; }
+        
+        /* === MEU BOTÃO DE RELATÓRIO DE VOLTA === */
+        .btn-ver { 
+            background: rgba(255,255,255,0.9); border: 1px solid #ed717a; color: #ed717a; 
+            padding: 12px 25px; border-radius: 25px; cursor: pointer; font-weight: bold; 
+            font-size: 0.85rem; margin-top: 25px; transition: 0.3s;
+        }
+        .btn-ver:hover { background: #ed717a; color: white; }
+
+        /* Minha tabela que agora aparece quando eu clico */
+        .tabela-container { 
+            display: none; background: white; border-radius: 20px; 
+            padding: 20px; margin-top: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        th { border-bottom: 2px solid #ed717a; padding: 12px; color: #ed717a; text-align: left; }
+        td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; color: #444; }
+        
+        .options-list::-webkit-scrollbar { width: 6px; }
+        .options-list::-webkit-scrollbar-thumb { background: #ed717a; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>GESTÃO <span>PAOLA</span> ESTÉTICA</h1>
+        
+        <div class="dashboard">
+            <div class="card"><span>Faturamento Bruto</span><b id="fat-bruto">R$ 0,00</b></div>
+            <div class="card"><span>Repasse Salão (30%)</span><b id="repasse-salao">R$ 0,00</b></div>
+            <div class="card"><span>Total Insumos</span><b id="total-insumos">R$ 0,00</b></div>
+            <div class="card"><span>Lucro Líquido</span><b id="lucro-final" style="color: #2e7d32;">R$ 0,00</b></div>
+        </div>
+
+        <div class="form-area">
+            <div class="input-group">
+                <div class="custom-select">
+                    <div class="select-box" id="select-label" onclick="toggleOptions()">Escolha o Procedimento... <span>▼</span></div>
+                    <div class="options-list" id="options-list"></div>
+                </div>
+                <input type="number" id="valor-pago" placeholder="R$" step="0.01">
+            </div>
+            <button class="btn-add" onclick="lancar()">LANÇAR AGORA</button>
+        </div>
+
+        <button class="btn-ver" onclick="verHistorial()">Ver Relatório Detalhado ↓</button>
+
+        <div id="historial" class="tabela-container">
+            <table>
+                <thead>
+                    <tr><th>Serviço</th><th>Venda</th><th>30% Salão</th><th>Insumos</th><th>Lucro</th></tr>
+                </thead>
+                <tbody id="corpo-tabela"></tbody>
+            </table>
+            <button onclick="reset()" style="color: #c62828; margin-top: 20px; background: none; border: none; cursor: pointer; font-weight: bold; font-size: 0.75rem;">[ Limpar Todos os Dados ]</button>
+        </div>
+    </div>
+
+    <script>
+        const PROCEDIMENTOS = {
+            "Limpeza de Pele": 1.72, "Microagulhamento Simples": 15.59, "Terapia Capilar": 1.70,
+            "Drenagem Linfática": 2.22, "Peeling Diamante": 2.10, "Microagulhamento com PDRN": 25.00,
+            "Intradermoterapia": 15.00, "Ultrassom": 5.00, "Peeling Cisteamina": 12.00,
+            "Blefaro Jato Plasma": 10.00, "Remoção de Tatuagem": 20.00, "Remoção de Micropigmentação": 15.00
+        };
+
+        let selecionado = "";
+        const listContainer = document.getElementById('options-list');
+        
+        Object.keys(PROCEDIMENTOS).forEach(p => {
+            let div = document.createElement('div');
+            div.className = 'option-item';
+            div.innerText = p;
+            div.onclick = () => { selecionado = p; document.getElementById('select-label').innerHTML = p + " <span>▼</span>"; toggleOptions(); };
+            listContainer.appendChild(div);
+        });
+
+        function toggleOptions() {
+            let list = document.getElementById('options-list');
+            list.style.display = list.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function lancar() {
+            const valor = parseFloat(document.getElementById("valor-pago").value);
+            if (!selecionado || isNaN(valor)) return alert("Ciméia, preencha o procedimento e o valor!");
+            const custoSalao = valor * 0.30;
+            const custoInsumo = PROCEDIMENTOS[selecionado];
+            const lucro = valor - custoSalao - custoInsumo;
+            const baseDados = JSON.parse(localStorage.getItem('bd_paola_v2')) || [];
+            baseDados.push({ servico: selecionado, valor, custoSalao, custoInsumo, lucro });
+            localStorage.setItem('bd_paola_v2', JSON.stringify(baseDados));
+            document.getElementById("valor-pago").value = "";
+            selecionado = "";
+            document.getElementById('select-label').innerHTML = "Escolha o Procedimento... <span>▼</span>";
+            carregar();
+        }
+
+        function carregar() {
+            const dados = JSON.parse(localStorage.getItem('bd_paola_v2')) || [];
+            const corpo = document.getElementById("corpo-tabela");
+            corpo.innerHTML = "";
+            let f = 0, r = 0, i = 0, l = 0;
+            dados.forEach(d => { 
+                f+=d.valor; r+=d.custoSalao; i+=d.custoInsumo; l+=d.lucro; 
+                corpo.innerHTML += `<tr><td>${d.servico}</td><td>R$ ${d.valor.toFixed(2)}</td><td>R$ ${d.custoSalao.toFixed(2)}</td><td>R$ ${d.custoInsumo.toFixed(2)}</td><td style="font-weight:bold; color:#2e7d32">R$ ${d.lucro.toFixed(2)}</td></tr>`;
+            });
+            const fmt = (v) => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            document.getElementById("fat-bruto").innerText = fmt(f);
+            document.getElementById("repasse-salao").innerText = fmt(r);
+            document.getElementById("total-insumos").innerText = fmt(i);
+            document.getElementById("lucro-final").innerText = fmt(l);
+        }
+
+        function verHistorial() {
+            let h = document.getElementById("historial");
+            h.style.display = h.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function reset() { if(confirm("Ciméia, deseja mesmo apagar tudo?")) { localStorage.removeItem('bd_paola_v2'); carregar(); } }
+
+        window.onload = carregar;
+    </script>
+</body>
+</html>
