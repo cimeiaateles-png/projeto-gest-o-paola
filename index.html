@@ -29,7 +29,16 @@
             background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 25px; 
             max-width: 650px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-        .input-group { display: flex; gap: 15px; margin-bottom: 20px; position: relative; }
+        .input-group {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            position: relative;
+            align-items: center;
+        }
+
+        .custom-select {flex: 2; position: relative; }
 
         /* Minha barra de busca moderna que eu não quero mudar */
         .custom-select { flex: 2; position: relative; }
@@ -174,3 +183,4 @@
 </body>
 
 </html>
+
