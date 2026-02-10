@@ -1,0 +1,108 @@
+ /* === ESTILO BASE === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            /* Cor de fundo reserva caso a imagem demore a carregar */
+            background: #fff0f1 url('img/fundo.png') no-repeat center center fixed;
+            background-size: cover;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container { text-align: center; width: 100%; max-width: 850px; padding-bottom: 50px; }
+        
+        h1 { color: #444; margin-bottom: 30px; text-transform: uppercase; font-size: 1.6rem; text-shadow: 1px 1px 2px white; }
+        h1 span { color: #ed717a; font-weight: bold; }
+        
+        /* Dashboard de Cards */
+        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .card { background: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 15px; border: 1px solid #ed717a; }
+        .card span { display: block; font-size: 0.8rem; color: #666; font-weight: bold; margin-bottom: 8px; }
+        .card b { font-size: 1.2rem; color: #333; }
+        
+        /* Área do Formulário */
+        .form-area {
+            background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 25px; 
+            max-width: 650px; margin: 0 auto; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* AJUSTE DO BOTÃO PARA NÃO VAZAR NO CELULAR */
+        .input-group {
+            display: flex;
+            flex-wrap: nowrap; /* Mantém seletor e valor na mesma linha */
+            gap: 10px;
+            margin-bottom: 20px;
+            position: relative;
+            align-items: center;
+        }
+
+        .custom-select { flex: 2; position: relative; }
+
+        .select-box {
+            padding: 15px; border-radius: 12px; border: 1px solid #ed717a;
+            background: white; cursor: pointer; text-align: left; font-size: 0.9rem; color: #444;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        input#valor-pago {
+            flex: 1;
+            min-width: 70px;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #ed717a;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .options-list {
+            position: absolute; top: 110%; left: 0; width: 100%;
+            background: white; border: 1px solid #ed717a; border-radius: 12px;
+            max-height: 200px; overflow-y: auto; display: none; z-index: 1000;
+        }
+
+        .option-item { padding: 12px; cursor: pointer; text-align: left; font-size: 0.9rem; border-bottom: 1px solid #fff0f1; }
+        .option-item:hover { background: #fff0f1; color: #ed717a; }
+
+        .btn-add { 
+            background: #ed717a; color: white; border: none; padding: 18px; 
+            border-radius: 12px; cursor: pointer; font-weight: bold; width: 100%; 
+            text-transform: uppercase; 
+        }
+        
+        .btn-ver { 
+            background: rgba(255,255,255,0.9); border: 1px solid #ed717a; color: #ed717a; 
+            padding: 12px 25px; border-radius: 25px; cursor: pointer; font-weight: bold; 
+            font-size: 0.85rem; margin-top: 25px; transition: 0.3s;
+        }
+        .btn-ver:hover { background: #ed717a; color: white; }
+
+        .tabela-container { 
+            display: none; background: white; border-radius: 20px; 
+            padding: 20px; margin-top: 25px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        th { border-bottom: 2px solid #ed717a; padding: 12px; color: #ed717a; text-align: left; }
+        td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; color: #444; }
+        
+        .options-list::-webkit-scrollbar { width: 6px; }
+        .options-list::-webkit-scrollbar-thumb { background: #ed717a; border-radius: 10px; }
+
+        /* REGRAS ESPECÍFICAS PARA CELULAR (A MÁGICA FINAL) */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.3rem; }
+            .input-group { gap: 5px; }
+            .select-box, input#valor-pago {
+                font-size: 0.8rem;
+                padding: 10px;
+                min-width: 60px;
+            }
+            .dashboard { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .card { padding: 12px; }
+            .card b { font-size: 0.9rem; }
+        }

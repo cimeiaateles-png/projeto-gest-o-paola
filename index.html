@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão Paola Estética | Dashboard</title>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Gestão <span>Paola Estética</span></h1>
+
+        <section class="dashboard">
+            <div class="card">
+                <span>Faturamento Bruto</span>
+                <b id="fat-bruto">R$ 0,00</b>
+            </div>
+            <div class="card">
+                <span>Repasse (30%)</span>
+                <b id="repasse-salao">R$ 0,00</b>
+            </div>
+            <div class="card">
+                <span>Total Insumos</span>
+                <b id="total-insumos">R$ 0,00</b>
+            </div>
+            <div class="card">
+                <span>Lucro Final</span>
+                <b id="lucro-final">R$ 0,00</b>
+            </div>
+        </section>
+
+        <div class="form-area">
+            <div class="input-group">
+                <div class="custom-select">
+                    <div class="select-box" id="select-label" onclick="toggleOptions()">
+                        Escolha o Procedimento... <span>▼</span>
+                    </div>
+                    <div class="options-list" id="options-list">
+                        </div>
+                </div>
+                <input type="number" id="valor-pago" placeholder="R$ Valor">
+            </div>
+
+            <button class="btn-add" onclick="lancar()">Lançar Atendimento</button>
+            
+            <button class="btn-ver" onclick="verHistorial()">Ver/Ocultar Histórico</button>
+            <button class="btn-ver" onclick="reset()" style="border-color: #666; color: #666; margin-left: 10px;">Resetar Dia</button>
+        </div>
+
+        <div class="tabela-container" id="historial">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Procedimento</th>
+                        <th>Valor</th>
+                        <th>30% Salão</th>
+                        <th>Insumos</th>
+                        <th>Lucro Líquido</th>
+                    </tr>
+                </thead>
+                <tbody id="corpo-tabela">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
