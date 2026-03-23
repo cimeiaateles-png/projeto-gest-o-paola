@@ -1,23 +1,56 @@
-# 💸 Gestão Financeira - Paola Estética (v2.0)
+# 💸 Sistema de Gestão Financeira - Estética
 
-Este projeto é uma ferramenta de gestão profissional desenvolvida para automatizar o cálculo de faturamento, repasses e insumos. A grande evolução desta atualização é a transição de uma interface estática para um **motor de cálculo robusto em Java**.
-
-## 🚀 O que há de novo (Atualização Java)
-Nesta versão, o foco foi a inteligência por trás do frontend. O sistema deixou de apenas exibir dados para processar lógica de negócio complexa:
-
-- **Backend Java:** Implementação de lógica orientada a objetos para processar repasses e descontos de insumos.
-- **Integração Full Stack:** O JavaScript agora atua como ponte, enviando os dados da interface para serem processados pela inteligência Java.
-- **Arquitetura Profissional:** Organização de pastas seguindo padrões de engenharia (Maven/Src), separando o que é visual do que é lógica.
-
-## 📂 Estrutura do Repositório
-- `src/main/java`: Inteligência financeira e motor de cálculos.
-- `index.html / css`: Interface de usuário (Frontend).
-- `script.js`: Dinamismo e comunicação entre as pontas.
-
-## 🛠️ Tecnologias
-- **Java** (Core do Sistema)
-- **JavaScript** (Integração)
-- **HTML5/CSS3** (Interface)
+Aplicação web desenvolvida para auxiliar no controle financeiro de um pequeno negócio do setor de estética, automatizando cálculos de faturamento, comissões e organização de dados.
 
 ---
-*“A inteligência que sustenta o projeto agora é outra. O visual é o que você vê, o Java é o que faz funcionar.”* 🚩
+
+## 🎯 Problema
+
+Pequenos empreendedores da área de estética frequentemente realizam o controle financeiro de forma manual, o que pode gerar erros, retrabalho e dificuldade na visualização dos resultados.
+
+---
+
+## 💡 Solução
+
+Este sistema foi desenvolvido para automatizar esses processos, permitindo:
+
+- Cálculo automático de faturamento  
+- Controle de comissões e repasses  
+- Organização de dados financeiros  
+- Visualização mais clara das informações  
+
+---
+
+## 🚀 Funcionalidades
+
+- Registro de serviços realizados  
+- Cálculo automático de valores e comissões  
+- Atualização dinâmica da interface  
+- Integração com dados externos (Google Sheets)  
+
+---
+
+## 🛠️ Tecnologias utilizadas
+
+- HTML5  
+- CSS3  
+- JavaScript  
+- Java (lógica de cálculo)  
+
+---
+
+## 🌐 Acesse o projeto
+
+👉 https://cimeiaateles-png.github.io/gestao-financeira-estetica/
+
+---
+
+## 💻 Código
+
+👉 https://github.com/cimeiaateles-png/gestao-financeira-estetica
+
+---
+
+## 📌 Observação
+
+Projeto em desenvolvimento com foco em resolver um problema real, aplicando lógica de programação, organização de dados e melhoria de processos.
